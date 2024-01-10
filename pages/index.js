@@ -1,67 +1,34 @@
 import Link from 'next/link';
-import { getPosts } from '../utils/mdx-utils';
-
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Layout, { GradientBackground } from '../components/Layout';
-import ArrowIcon from '../components/ArrowIcon';
-import { getGlobalData } from '../utils/global-data';
 import SEO from '../components/SEO';
+import { getGlobalData } from '../utils/global-data';
 
-export default function Index({ posts, globalData }) {
+export default function Index() {
+  const globalData = getGlobalData();
+
   return (
     <Layout>
-      <SEO title={globalData.name} description={globalData.blogTitle} />
+      <SEO title="SecurePayments: Payment Confirmation" description="Confirmation of your successful payment." />
       <Header name={globalData.name} />
-      <main className="w-full">
-        <h1 className="text-3xl lg:text-5xl text-center mb-12">
-          {globalData.blogTitle}
-        </h1>
-        <ul className="w-full">
-          {posts.map((post) => (
-            <li
-              key={post.filePath}
-              className="md:first:rounded-t-lg md:last:rounded-b-lg backdrop-blur-lg bg-white dark:bg-black dark:bg-opacity-30 bg-opacity-10 hover:bg-opacity-20 dark:hover:bg-opacity-50 transition border border-gray-800 dark:border-white border-opacity-10 dark:border-opacity-10 border-b-0 last:border-b hover:border-b hovered-sibling:border-t-0"
-            >
-              <Link
-                as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
-                href={`/posts/[slug]`}
-              >
-                <a className="py-6 lg:py-10 px-6 lg:px-16 block focus:outline-none focus:ring-4">
-                  {post.data.date && (
-                    <p className="uppercase mb-3 font-bold opacity-60">
-                      {post.data.date}
-                    </p>
-                  )}
-                  <h2 className="text-2xl md:text-3xl">{post.data.title}</h2>
-                  {post.data.description && (
-                    <p className="mt-3 text-lg opacity-60">
-                      {post.data.description}
-                    </p>
-                  )}
-                  <ArrowIcon className="mt-4" />
-                </a>
-              </Link>
-            </li>
-          ))}
-        </ul>
+      <main className="w-full bg-gradient-to-r from-blue-200 via-indigo-200 to-purple-300 min-h-screen flex items-center justify-center">
+        <div className="container mx-auto p-8 max-w-3xl">
+          <div className="bg-white rounded-lg shadow-xl p-6 border-t-4 border-indigo-500">
+            <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Payment Successful</h1>
+            <p className="text-gray-600 text-lg mb-6">
+              Thank you for your payment. Your transaction has been successfully completed...
+              {/* Resto del contenido */}
+            </p>
+            {/* Resto del contenido */}
+          </div>
+        </div>
       </main>
-      <Footer copyrightText={globalData.footerText} />
-      <GradientBackground
-        variant="large"
-        className="fixed top-20 opacity-40 dark:opacity-60"
-      />
-      <GradientBackground
-        variant="small"
-        className="absolute bottom-0 opacity-20 dark:opacity-10"
-      />
+      <Footer copyrightText="© 2024 SecurePayments. All rights reserved." />
+      <GradientBackground variant="large" className="fixed top-20 opacity-40 dark:opacity-60" />
+      <GradientBackground variant="small" className="absolute bottom-0 opacity-20 dark:opacity-10" />
     </Layout>
   );
 }
 
-export function getStaticProps() {
-  const posts = getPosts();
-  const globalData = getGlobalData();
-
-  return { props: { posts, globalData } };
-}
+// No necesitas getStaticProps a menos que quieras cargar datos adicionales
